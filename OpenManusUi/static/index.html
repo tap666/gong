@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenManus Web</title>
+    <style>
+        /* 新增分屏布局样式 */
+        body {
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            gap: 20px;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .left-panel {
+            width: 33%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .right-panel {
+            width: 67%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 模型配置区域样式 */
+        .model-config {
+            margin-bottom: 20px;
+        }
+
+        .config-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        select, input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* 调整原有输出区域样式 */
+        #output {
+            height: calc(100vh - 180px);
+            border: 1px solid #ddd;
+            padding: 10px;
+            overflow-y: auto;
+            margin-top: 15px;
+            background: #1a1a1a;
+            color: #ffffff;
+            font-family: monospace;
+            border-radius: 4px;
+        }
+
+        /* 日志条目样式 */
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .error-entry {
+            color: #ff4444;
+        }
+
+        /* 按钮样式调整 */
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #executeBtn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        #stopBtn {
+            background: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 左侧配置面板 -->
+    <div class="left-panel">
+        <h2>🛠️ 模型配置</h2>
+
+        <div class="model-config">
+            <div class="config-group">
+                <label>部署方式</label>
+                <select id="deployType">
+                    <option value="local">本地部署</option>
+                    <option value="cloud">云端模型</option>
+                </select>
+            </div>
+
+            <div class="config-group" id="localModels">
+                <label>本地已有模型</label>
+                <select>
+                    <option value="qwen2.5:14b">qwe2.5:14b</option>
+                    <option value="deepseek-r1:7b">deepseek-r1:7b</option>
+                    <option value="qwq:latest">qwq:32b</option>
+                </select>
+            </div>
+
+            <div class="config-group" id="cloudConfig" style="display: none;">
+                <label>云模型</label>
+                <select>
+                    <option value="gpt-4o-mini">gpt-4o-mini</option>
+                    <option value="claude-3-5-sonnet">claude-3-5-sonnet</option>
+                </select>
+
+                <div style="margin-top: 10px;">
+                    <label>API Key</label>
+                    <input type="password" placeholder="输入API密钥">
+                </div>
+            </div>
+        </div>
+
+        <div class="config-group">
+                <label>输入你期望的需求</label>
+                <textarea id="input" rows="6" cols="55"></textarea>
+            </div>
+
+        <div class="action-buttons">
+            <button id="executeBtn" onclick="executePrompt()">🚀 执行任务</button>
+            <button id="stopBtn" onclick="stopExecution()" style="margin-left:10px">🛑 停止任务</button>
+        </div>
+    </div>
+
+    <!-- 右侧日志面板 -->
+    <div class="right-panel">
+        <h2>📜 执行日志</h2>
+        <div id="output">
+            <!-- 日志内容将通过JavaScript填充 -->
+        </div>
+    </div>
+
+    <script>
+        // 动态显示配置区域
+        document.getElementById('deployType').addEventListener('change', function(e) {
+            const cloudConfig = document.getElementById('cloudConfig');
+            const localModels = document.getElementById('localModels');
+            if (e.target.value === 'cloud') {
+                cloudConfig.style.display = 'block';
+                localModels.style.display = 'none';
+            } else {
+                cloudConfig.style.display = 'none';
+                localModels.style.display = 'block';
+            }
+        });
+    </script>
+    <script src="js/frontend.js"></script>
+</body>
+</html>

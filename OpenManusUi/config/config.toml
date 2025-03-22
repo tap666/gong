@@ -1,0 +1,32 @@
+# Global LLM configuration
+[llm]
+#model = "qwq:latest"
+#model = "deepseek-r1:7b"
+model = "qwen2.5:14b"
+base_url = "http://127.0.0.1:11434/v1"
+api_key = "ollama"
+max_tokens = 4096
+temperature = 0.0
+
+#model = "Qwen/QwQ-32B"
+#base_url = "https://api.siliconflow.cn"
+#api_key = "sk-xxx"
+#max_tokens = 10000
+#temperature = 0.6
+
+# [llm] #AZURE OPENAI:
+# api_type= 'azure'
+# model = "YOUR_MODEL_NAME" #"gpt-4o-mini"
+# base_url = "{YOUR_AZURE_ENDPOINT.rstrip('/')}/openai/deployments/{AZURE_DEPOLYMENT_ID}"  
+# api_key = "AZURE API KEY"
+# max_tokens = 8096
+# temperature = 0.0
+# api_version="AZURE API VERSION" #"2024-08-01-preview"
+
+# Optional configuration for specific LLM models
+[llm.vision]
+#model = "qwq:latest"
+#model = "deepseek-r1:7b"
+model = "qwen2.5:14b"
+base_url = "http://127.0.0.1:11434/v1"
+api_key = "ollama"
